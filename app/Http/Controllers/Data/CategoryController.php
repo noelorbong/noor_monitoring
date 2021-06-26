@@ -26,6 +26,23 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {    
+        $default = DB::table('categories')
+        ->select(
+            DB::RAW('Count(*) as counted')     
+           )
+        ->where('id','=',1)
+        ->first();
+
+        if($default->counted <= 0){
+            DB::table('categories')->insert(
+                [
+                    'id' => 1,
+                'category_name' => ' No Category',
+                'description' => 'No Category'
+                ]
+            );
+        }
+
         DB::table('categories')->insert(
             [
             'category_name' => $request->category_name,

@@ -6,6 +6,7 @@
       @click="mobileSidebarToggle"
     >&#9776;</button>
     <b-link class="navbar-brand" to="/"></b-link>
+
     <button
       class="navbar-toggler sidebar-toggler d-md-down-none"
       type="button"
@@ -36,9 +37,9 @@
         <b-dropdown-header tag="div" class="text-center">
           <strong>Account</strong>
         </b-dropdown-header>
-        <b-dropdown-item>
+        <!-- <b-dropdown-item>
           <i class="fa fa-shield"></i> Lock Account
-        </b-dropdown-item>
+        </b-dropdown-item>-->
         <b-dropdown-item v-if="$auth.check()">
           <a @click.prevent="$auth.logout()">
             <i class="fa fa-lock"></i> Logout

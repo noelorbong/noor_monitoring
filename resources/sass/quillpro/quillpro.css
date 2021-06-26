@@ -4,6 +4,10 @@
 /* QUILLPRO MIXINS */
 /* Colors */
 /* General Styles */
+.row > div {
+  margin-bottom:auto;
+}
+
 html {
   /* color: #72848c !important; */
   font-family: 'Montserrat', sans-serif !important;

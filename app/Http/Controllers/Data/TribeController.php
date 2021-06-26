@@ -28,6 +28,27 @@ class TribeController extends Controller
 
     public function store(Request $request)
     {    
+        $default = DB::table('tribes')
+        ->select(
+            DB::RAW('Count(*) as counted')     
+           )
+        ->where('id','=',1)
+        ->first();
+
+        if($default->counted <= 0){
+            DB::table('tribes')->insert(
+                [
+                'id' => 1,
+                'tribe_name' => ' No Tribe',
+                'tribe_leader' => 0,
+            'username' => 'None',
+            'password' => 'None',
+            'description' => 'No Tribe'
+                ]
+            );
+        }
+
+        
         DB::table('tribes')->insert(
             [
             'tribe_name' => $request->tribe_name,

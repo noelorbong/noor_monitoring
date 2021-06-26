@@ -16,8 +16,8 @@
           <img class="profile-img" :src="'uploads/'+user.photo" />
           <br />
           <br />
-          <u>{{ user.last_name == null ? " ":user.last_name}}, {{ user.first_name == null ? " ":user.first_name}} {{ user.name_extension == null ? " ":user.name_extension}} {{ user.middle_name == null ? " ":user.middle_name }}</u>
-
+          <!-- <u>{{ user.last_name == null ? " ":user.last_name}}, {{ user.first_name == null ? " ":user.first_name}} {{ user.name_extension == null ? " ":user.name_extension}} {{ user.middle_name == null ? " ":user.middle_name }}</u> -->
+          <u>{{ user.full_name}}</u>
           <br />
           <span style="font-weight: bold;">Full Name</span>
           <br />
@@ -43,7 +43,8 @@
           <span style="font-weight: bold;">Date Of Birth</span>
           <br />
           <br />
-          <u>{{ user.address1 || '' }} {{ user.address2 == null ? " ":user.address2+","}} {{ user.barangay == null ? " ":user.barangay+","}} {{ user.municipality == null ? " ":user.municipality+","}} {{ user.province == null ? " ":user.province+ ","}} {{ user.zipcode == null ? " ":user.zipcode}}</u>
+          <u>{{ user.complete_address}}</u>
+          <!-- <u>{{ user.address1 || '' }} {{ user.address2 == null ? " ":user.address2+","}} {{ user.barangay == null ? " ":user.barangay+","}} {{ user.municipality == null ? " ":user.municipality+","}} {{ user.province == null ? " ":user.province+ ","}} {{ user.zipcode == null ? " ":user.zipcode}}</u> -->
           <br />
           <span style="font-weight: bold;">Address</span>
           <br />
@@ -96,6 +97,21 @@
               <u>{{ user.category_name || '' }}</u>
               <br />
               <span style="font-weight: bold;">Categories</span>
+            </div>
+            <div class="col-sm-4" style="text-align:center;">
+              <u>{{ user.specializedministry_name || '' }}</u>
+              <br />
+              <span style="font-weight: bold;">Specialized Ministry</span>
+            </div>
+            <div class="col-sm-4" style="text-align:center;">
+              <u>{{ user.progress_name || '' }}</u>
+              <br />
+              <span style="font-weight: bold;">Progress</span>
+            </div>
+            <div class="col-sm-4" style="text-align:center;">
+              <u>{{ user.lifeclass_name || '' }}</u>
+              <br />
+              <span style="font-weight: bold;">Life Class</span>
             </div>
             <br />
             <br />
@@ -435,7 +451,7 @@ export default {
     reloadProfile(id) {
       let app = this;
       app.userId = id;
-      this.$router.push({ name: "MemberProfile", params: { id: id } });
+      // this.$router.push({ name: "MemberProfile", params: { id: id } });
       app.loadProfile(id);
       app.loadFlocks(id);
       app.loadReports(id);
@@ -461,6 +477,23 @@ export default {
             });
             app.user.category_name = category_name.join(",");
           }
+          // the convertion of ...ties to ...try.name hahahahahaha
+          if (app.user.specializedministry) {
+            var specializedministry_name = [];
+            var specializedministry_split = app.user.specializedministry.split(",");
+
+            $.each(specializedministry_split, function(key1, value1) {
+              $.each(resp.data.specializedministries, function(key2, value2) {
+                if (value1 == value2.value) {
+                  specializedministry_name.push(value2.text);
+                }
+              });
+            });
+            app.user.specializedministry_name = specializedministry_name.join(",");
+          }
+
+
+          
         })
         .catch(function() {
           alert("Could not load your profile");

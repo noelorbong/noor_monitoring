@@ -102,7 +102,7 @@ class ActivityController extends Controller
     {    
         DB::table('activity')->insert(
             [
-                'main_acitivity_id' => $request->main_acitivity_id,
+            'main_acitivity_id' => $request->main_acitivity_id,
             'title' => $request->title,
             'location' => $request->location,
             'date' => $request->date,

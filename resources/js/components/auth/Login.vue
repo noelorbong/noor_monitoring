@@ -49,9 +49,9 @@
                     <div class="col-6">
                       <button type="submit" class="btn btn-primary px-4">Login</button>
                     </div>
-                    <div class="col-6 text-right">
+                    <!-- <div class="col-6 text-right">
                       <button type="button" class="btn btn-link px-0">Forgot password?</button>
-                    </div>
+                    </div>-->
                   </div>
                 </form>
               </div>
@@ -60,8 +60,12 @@
               <div class="card-body text-center">
                 <div>
                   <h2>Sign up</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <button type="button" class="btn btn-primary active mt-3">Register Now!</button>
+                  <p>Try and explore</p>
+                  <b-link
+                    style="pointer-events:none"
+                    class="btn btn-primary active mt-3"
+                    to="/register"
+                  >Register Now!</b-link>
                 </div>
               </div>
             </div>
@@ -82,7 +86,7 @@ export default {
       fullPage: false,
       isLoading: false,
       loader: "dots",
-      loaderColor: "rgb(255,0,0)"
+      loaderColor: "rgb(11, 49, 200)"
     };
   },
   mounted() {
@@ -104,7 +108,7 @@ export default {
           // handle redirection
           app.isLoading = false;
 
-          this.$router.push("/main");
+          // this.$router.push("/main");
           const redirectTo = redirect
             ? redirect.from.name
             : this.$auth.user().role === 2
@@ -123,22 +127,23 @@ export default {
     },
     handleSubmit(e) {
       var app = this;
+      // let headers = {};
       e.preventDefault();
-      if (this.password.length > 0) {
+      if (app.password.length > 0) {
         app.isLoading = true;
-        this.$http
+        app.$http
           .post("/auth/login", {
-            email: this.email,
-            password: this.password
+            email: app.email,
+            password: app.password
           })
           .then(response => {
-            this.login();
+            app.login();
           })
           .catch(function(error) {
             // console.error(error.response);
             app.has_error = true;
             app.isLoading = false;
-            // console.log("error");
+            return;
           });
       }
     }

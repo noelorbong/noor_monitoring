@@ -261,7 +261,7 @@ export default {
       var app = this;
       this.$auth.register({
         data: {
-          name: "User",
+          name: "UserNotAdmin",
           email: app.data.username,
           password: app.data.password,
           password_confirmation: app.data.password

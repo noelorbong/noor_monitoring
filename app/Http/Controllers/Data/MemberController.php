@@ -49,9 +49,11 @@ class MemberController extends Controller
         $records = DB::table('members as mb')
         
         ->leftJoin('tribes', 'mb.tribe', '=', 'tribes.id')
+        ->leftJoin('progresses', 'mb.progress', '=', 'progresses.id')
         // ->leftJoin('categories', 'mb.category', 'like', db::raw('concat("%",categories.id,"%")'))
         ->select('mb.*'
             ,'tribes.tribe_name'
+            ,'progresses.progress_name'
             ,DB::raw('(select " ") as category_name')
             ,DB::raw('concat(COALESCE(mb.address1,""),", ",COALESCE(mb.address2,"")," ",COALESCE(mb.barangay,"")," ",COALESCE(mb.zipcode,"")," ",COALESCE(mb.municipality,"")," ",COALESCE(mb.province,"")) as complete_address ')
             ,DB::raw('concat(COALESCE(mb.last_name,""),", ",COALESCE(mb.first_name,"")," ",COALESCE(mb.name_extension,"")," ",COALESCE(mb.middle_name,"")) as full_name')
@@ -89,16 +91,16 @@ class MemberController extends Controller
         if($request->category == null || $request->category == ""){
             $category = "1";
         }
-       // return $request;
+        // return $request;
         $photo = "image_icon";
         if($request->file('photo')){
-        $photo = str_random(25);
-        $cover = $request->file('photo');
-        $extension = $cover->getClientOriginalExtension();
-        Storage::disk('public')->put( $photo.'.png',  File::get($cover));
-
-        
+            $photo = str_random(25);
+            $cover = $request->file('photo');
+            $extension = $cover->getClientOriginalExtension();
+            Storage::disk('public')->put( $photo.'.png',  File::get($cover));
         }
+
+        // return $request;
         
         DB::table('members')->insert(
             [
@@ -110,11 +112,13 @@ class MemberController extends Controller
             'email_address' => $request->email_address,
             'contact_number' => $request->contact_number,
             'dob' => $request->dob,
-            'spiritual_dob' => $request->spiritual_dob,
+            'spiritual_dob' => $request->spiritual_dob == null? DB::RAW('Date(NOW())'):$request->spiritual_dob,
             'gender' => $request->gender,
             'category' => $category,
             'tribe' => $request->tribe,
             'mentor' => $request->mentor,
+            // 'progress' => $request->progress,
+            // 'lifeclass' => $request->lifeclass,
             'label' => $request->label,
             'address1' => $request->address1,
             'address2' => $request->address2,
@@ -199,11 +203,23 @@ class MemberController extends Controller
         $user = DB::table('members as mb')
         
         ->leftJoin('tribes', 'mb.tribe', '=', 'tribes.id')
+        
+        //  ->leftJoin('specializedministries', 'mb.specializedministry', '=', 'specializedministries.id')
+        
+        ->leftJoin('lifeclasses', 'mb.lifeclass', '=', 'lifeclasses.id')
+        ->leftJoin('progresses', 'mb.progress', '=', 'progresses.id')
         ->select('mb.*'
             ,DB::raw('(tribes.id) as tribe_id')
+            ,'lifeclasses.lifeclass_name'
+            // ,'specializedministries.specializedministry_name'
+            ,'progresses.progress_name'
             ,'tribes.tribe_name'
             ,'tribes.tribe_leader'
+            
             ,DB::raw('(select " ") as category_name')
+            
+            ,DB::raw('(select " ") as specializedministry_name')
+
             ,DB::raw('concat(COALESCE(mb.address1,""),", ",COALESCE(mb.address2,"")," ",COALESCE(mb.barangay,"")," ",COALESCE(mb.zipcode,"")," ",COALESCE(mb.municipality,"")," ",COALESCE(mb.province,"")) as complete_address ')
             ,DB::raw('concat(COALESCE(mb.last_name,""),", ",COALESCE(mb.first_name,"")," ",COALESCE(mb.name_extension,"")," ",COALESCE(mb.middle_name,"")) as full_name')
             ,DB::raw('(Select concat(COALESCE(last_name,""),", ",COALESCE(first_name,"")," ",COALESCE(name_extension,"")," ",COALESCE(middle_name,"")) from members where id = mb.mentor limit 1) as mentor_name')
@@ -218,7 +234,15 @@ class MemberController extends Controller
         ->orderByRaw('category_name asc')
         ->get();
 
-        return  compact('user','categories');
+        // return  compact('user','categories');
+
+
+        $specializedministries = DB::table('specializedministries')
+        ->select('id as value','specializedministry_name as text')
+        ->orderByRaw('specializedministry_name asc')
+        ->get();
+
+        return  compact('user','specializedministries','categories');
     }
 
     public function report($id)

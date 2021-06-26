@@ -1,16 +1,18 @@
 <template>
-  <div class="flex-center position-ref full-height">
-    <div class="top-right links">
-      <!-- <router-link :to="{name: 'Dashboard'}">Dashboard</router-link> -->
-      <b-link v-if="UserName != '' && Role == 2" to="/main/dashboard">Dashboard</b-link>
-      <b-link v-else-if="UserName != '' && Role == 1" to="/user/dashboard">Dashboard</b-link>
-      <b-link v-else to="/login">Login</b-link>
-    </div>
+  <div class="welcome-background">
+    <div class="flex-center position-ref full-height">
+      <div class="top-right links">
+        <!-- <router-link :to="{name: 'Dashboard'}">Dashboard</router-link> -->
+        <b-link v-if="UserName != '' && Role == 2" to="/main/dashboard">Dashboard</b-link>
+        <b-link v-else-if="UserName != '' && Role == 1" to="/user/dashboard">Dashboard</b-link>
+        <b-link v-else to="/login">Login</b-link>
+      </div>
 
-    <div class="content">
-      <div class="title m-b-md">CLHCCU Church Monitoring</div>
-
-      <div class="links"></div>
+      <div class="content">
+        <div class="title m-b-md">
+          <img style="width:20vw" src="/images/chose1s_banner.png" title="Chosen1s" alt="Chosen1s" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,9 +56,28 @@ export default {
 </script>
 
 <style>
+.content {
+  width: 100%;
+}
+.title {
+  width: 100%;
+  /* font-weight: 500; */
+  /* color: #636b6f; */
+  -webkit-text-stroke: 2px #ffffff;
+  background-color: rgba(245, 245, 245, 0.5);
+}
+.welcome-background {
+  background: url(/images/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 html,
 body {
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: transparent;
   color: #636b6f;
   font-family: "Nunito", sans-serif;
   font-weight: 200;
@@ -93,7 +114,7 @@ body {
 }
 
 .links > a {
-  color: #636b6f;
+  color: #656060;
   padding: 0 25px;
   font-size: 13px;
   font-weight: 600;

@@ -39,22 +39,22 @@ $vimeo: #aad450 !default;
 $navbar-height: 55px !default;
 $navbar-bg: #fff !default;
 $navbar-border: (
-    bottom: (
-        size: 1px,
-        style: solid,
-        color: $border-color
-    )
+  bottom: (
+    size: 1px,
+    style: solid,
+    color: $border-color,
+  ),
 ) !default;
 $navbar-brand-width: 155px !default;
 $navbar-brand-bg: #fff !default;
-$navbar-brand-logo: url("../images/banner.jpg") !default;
-$navbar-brand-logo-size: 50px auto !default;
+$navbar-brand-logo: url("../images/chose1s_banner.png") !default;
+$navbar-brand-logo-size: 100px auto !default;
 $navbar-brand-border: (
-    bottom: (
-        size: 1px,
-        style: solid,
-        color: $border-color
-    )
+  bottom: (
+    size: 1px,
+    style: solid,
+    color: $border-color,
+  ),
 ) !default;
 
 $navbar-color: $gray-600 !default;
@@ -109,18 +109,18 @@ $sidebar-nav-dropdown-borders: 0 !default;
 $top-nav-bg: #fff !default;
 $top-nav-color: $body-color !default;
 $top-nav-borders: (
-    bottom: (
-        size: 1px,
-        style: solid,
-        color: $border-color
-    )
+  bottom: (
+    size: 1px,
+    style: solid,
+    color: $border-color,
+  ),
 ) !default;
 $top-nav-ul-borders: (
-    all: (
-        size: 1px,
-        style: solid,
-        color: $border-color
-    )
+  all: (
+    size: 1px,
+    style: solid,
+    color: $border-color,
+  ),
 ) !default;
 
 $top-nav-hover-color: #fff !default;
@@ -132,11 +132,11 @@ $top-nav-height: $navbar-height - 15px !default;
 // Breadcrumb
 
 $breadcrumb-borders: (
-    bottom: (
-        size: 1px,
-        style: solid,
-        color: $border-color
-    )
+  bottom: (
+    size: 1px,
+    style: solid,
+    color: $border-color,
+  ),
 ) !default;
 
 // Aside
@@ -145,11 +145,11 @@ $aside-menu-width: 250px !default;
 $aside-menu-color: $gray-800 !default;
 $aside-menu-bg: #fff !default;
 $aside-menu-borders: (
-    left: (
-        size: 1px,
-        style: solid,
-        color: $border-color
-    )
+  left: (
+    size: 1px,
+    style: solid,
+    color: $border-color,
+  ),
 ) !default;
 
 $aside-menu-nav-padding-y: 0.75rem !default;
@@ -161,11 +161,11 @@ $footer-height: 50px !default;
 $footer-bg: $gray-100 !default;
 $footer-color: $body-color !default;
 $footer-borders: (
-    top: (
-        size: 1px,
-        style: solid,
-        color: $border-color
-    )
+  top: (
+    size: 1px,
+    style: solid,
+    color: $border-color,
+  ),
 ) !default;
 
 // Cards
